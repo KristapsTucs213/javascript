@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>KALKULATOR!!!!!!</h1>
+    <input type="number" name="one" id="asd" />
+    <input type="text" name="two" id="asdd" />
+    <input type="number" name="three" id="asddd" />
+    <input type="button" value="kalk" id="button" />
+    <input type="button" value="clear" id="clear" />
+    <p id="export"></p>
+  </body>
+  <script>
+    const asd = document.getElementById("asd");
+    const asdd = document.getElementById("asdd");
+    const asddd = document.getElementById("asddd");
+    const print = document.getElementById("export");
+    const button = document.getElementById("button");
+    const clearbtn = document.getElementById("clear");
+
+    function parbauditajs() {
+      const num1 = +asd.value;
+      const num2 = +asddd.value;
+      let returnText;
+
+      if (asdd.value == "+") {
+        returnText = num1 + num2;
+      } else if (asdd.value == "-") {
+        returnText = num1 - num2;
+      } else if (asdd.value == "*") {
+        returnText = num1 * num2;
+      } else if (asdd.value == "/") {
+        if (num2 === 0) {
+          returnText = "Nevar dalit ar 0";
+        } else {
+          returnText = num1 / num2;
+        }
+      } else {
+        returnText = "Nav plusins minusins";
+      }
+
+      print.innerHTML = returnText;
+    }
+
+    button.addEventListener("click", parbauditajs);
+
+    function clearing() {
+      asd.value = "";
+      asdd.value = "";
+      asddd.value = "";
+      print.innerHTML = "";
+    }
+    clearbtn.addEventListener("click", clearing);
+  </script>
+</html>
