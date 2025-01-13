@@ -3,57 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Kalkulātors</title>
   </head>
   <body>
-    <h1>KALKULATOR!!!!!!</h1>
-    <input type="number" name="one" id="value1" />
-    <input type="text" name="two" id="operator" />
-    <input type="number" name="three" id="value2" />
-    <input type="button" value="kalk" id="button" />
-    <input type="button" value="clear" id="clear" />
-    <p id="export"></p>
-  </body>
-  <script>
-    const value1 = document.getElementById("value1");
-    const asdd = document.getElementById("operator");
-    const value2 = document.getElementById("value2");
-    const print = document.getElementById("export");
-    const button = document.getElementById("button");
-    const clearbtn = document.getElementById("clear");
+    <h1>Kalkulātors</h1>
+    <input type="text" id="num1" placeholder="1. skaitlis" />
+    <input type="text" id="operator" placeholder="Darbība" />
+    <input type="text" id="num2" placeholder="2. skaitlis" />
+    <button id="btn">Rēķināt</button>
+    <p id="output"></p>
 
-    function parbauditajs() {
-      const num1 = +value1.value;
-      const num2 = +value2.value;
-      let returnText = calculateResult();
+    <script>
+      const btn = document.getElementById("btn"); // vs querySelector
+      const firstNumberInput = document.getElementById("num1");
+      const secondNumberInput = document.getElementById("num2");
+      const operatorInput = document.getElementById("operator");
+      const outputContainer = document.getElementById("output");
 
-      print.innerHTML = returnText;
-    }
+      btn.addEventListener("click", handleClick);
 
-    function calculateResult() {
-      const num1 = +value1.value;
-      const num2 = +value2.value;
-      let returnText;
+      function handleClick() {
+        let firstNumberValue = parseFloat(firstNumberInput.value);
+        let secondNumberValue = parseFloat(secondNumberInput.value);
+        let operatorValue = operatorInput.value;
 
-      if (asdd.value == "+") {
-        return num1 + num2;
-      } else if (asdd.value == "-") {
-        return num1 - num2;
-      } else if (asdd.value == "*") {
-        return num1 * num2;
-      } else if (asdd.value == "/") {
-        return num1 / num2;
+        let errorArray = validateUserInput(
+          firstNumberValue,
+          secondNumberValue,
+          operatorValue
+        );
+
+        if (errorArray.length > 0) {
+          displayErrors(errorArray);
+        } else {
+          let result = calculateResult(
+            firstNumberValue,
+            secondNumberValue,
+            operatorValue
+          );
+          displayResult(result);
+        }
       }
-    }
 
-    button.addEventListener("click", parbauditajs);
+      function calculateResult(n1, n2, op) {
+        switch (op) {
+          case "+":
+            return n1 + n2;
 
-    function clearing() {
-      value1.value = "";
-      asdd.value = "";
-      value2.value = "";
-      print.innerHTML = "";
-    }
-    clearbtn.addEventListener("click", clearing);
-  </script>
+          case "-":
+            return n1 - n2;
+
+          case "*":
+            return n1 * n2;
+
+          case "/":
+            return n1 / n2;
+        }
+      }
+      function validateUserInput(n1, n2, op) {
+        return [];
+        return [
+          "Pirmais skaitlis nav ielikts",
+          "Otrais skaitlis nav ielikts",
+          "Operators nederigs",
+        ];
+      }
+      function displayErrors(ary) {
+        outputContainer.innerHTML = ary.join("<br>");
+      }
+      function displayResult(res) {
+        outputContainer.innerText = `Rezultats: ${res}`;
+      }
+    </script>
+  </body>
 </html>
